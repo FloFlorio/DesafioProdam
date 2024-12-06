@@ -82,13 +82,13 @@ public class GameApp {
                     Game selectedGame = gameManager.getGameList().get(selectedIndex);
 
                     String name = JOptionPane.showInputDialog("Nome do jogo:", selectedGame.getName());
-                    String date = JOptionPane.showInputDialog("Data de Conclusão (dd/MM/yyyy):", selectedGame.getCompletionDate());
+                    String date = JOptionPane.showInputDialog("Data de Conclusão (dd/MM/yyyy):", selectedGame.getCompletionDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                     String time = JOptionPane.showInputDialog("Tempo de conclusão (em minutos):", selectedGame.getCompletionTime());
 
                     if (name != null && date != null && time != null) {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         try {
-                            LocalDate completionDate = LocalDate.parse(date, formatter); // Parsing com formato correto
+                            LocalDate completionDate = LocalDate.parse(date, formatter); 
                             int completionTime = Integer.parseInt(time);
                             Game newGame = new Game(name, completionDate, completionTime);
                             gameManager.editGame(selectedIndex, newGame);
